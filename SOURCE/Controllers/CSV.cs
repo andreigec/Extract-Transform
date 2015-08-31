@@ -9,43 +9,35 @@ using ExtractTransform.Interfaces;
 
 namespace ExtractTransform.Controllers
 {
-	public class CSV : ITransform
-	{
-		public Result Save(string filename, Dictionary<string, object> content, List<string> startChildrenPoint)
-		{
-			var ret = new Result();
-			try
-			{
-				dynamic items = content;
-				var c = new CsvExport();
+    public class CSV : ITransform
+    {
+        public Result Save(string filename, Dictionary<string, object> content, List<string> startChildrenPoint)
+        {
+            var ret = new Result();
+            try
+            {
+                var c = new CsvExport();
 
-				foreach (var k in startChildrenPoint)
-				{
-					items = items[k];
-				}
+                c.AddRow();
 
-				foreach (var row in items)
-				{
-					c.AddRow();
+                foreach (KeyValuePair<string, object> kvp in content)
+                {
+                    var key = kvp.Key;
+                    var val = kvp.Value;
+                    c[key] = val;
+                }
 
-					foreach (KeyValuePair<string, object> kvp in row)
-					{
-						var key = kvp.Key;
-						var val = kvp.Value;
-						c[key] = val;
-					}
-				}
-				ret.Items.Add("extracted:" + items.Count);
-				c.ExportToFile(filename);
-				ret.Status = items.Count > 0;
-			}
-			catch (Exception ex)
-			{
-				ret.ErrorStatus = ex.ToString();
-				ret.Items.Add(ex.ToString());
-			}
+                ret.Items.Add("extracted:" + content.Count);
+                c.ExportToFile(filename);
+                ret.Status = content.Count > 0;
+            }
+            catch (Exception ex)
+            {
+                ret.ErrorStatus = ex.ToString();
+                ret.Items.Add(ex.ToString());
+            }
 
-			return ret;
-		}
-	}
+            return ret;
+        }
+    }
 }

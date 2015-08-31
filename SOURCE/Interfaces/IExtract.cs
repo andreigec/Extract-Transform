@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace ExtractTransform.Interfaces
 {
-	interface IExtract
-	{
-		Dictionary<string, object> Extract(string content);
+    interface IExtract
+    {
+        Dictionary<string, object> Extract(string content);
 
-		string DownloadPage(string url, string @params, List<KeyValuePair<string, string>> cookies);
+        string DownloadPage(string url, string @params, string method, List<KeyValuePair<string, string>> cookies);
 
 
 
-	}
+    }
 }
