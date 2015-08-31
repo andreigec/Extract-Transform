@@ -127,22 +127,31 @@ namespace ExtractTransform.Helpers
         /// </summary>
         public void ExportToFile(string path, bool header, int? uniqueColumn)
         {
-            var e = Export(header);
-
-            //check unique
-            if (uniqueColumn != null)
+            try
             {
-                var f = CSV.Load(path);
-                if (f != null)
+                var e = Export(header);
+
+                //check unique
+                if (uniqueColumn != null)
                 {
-                    var exist = f.Select(s => s[(int)uniqueColumn]).ToList();
-                    var toadd = e.Select(s => s[(int)uniqueColumn]).ToList();
-                    if (exist.Any(s => toadd.Any(s2 => s2 == s)))
-                        return;
+                    var f = CSV.Load(path);
+                    if (f != null)
+                    {
+                        var exist = f.Select(s => s[(int)uniqueColumn]).ToList();
+                        var toadd = e.Select(s => s[(int)uniqueColumn]).ToList();
+                        if (exist.Any(s => toadd.Any(s2 => s2 == s)))
+                            return;
+                    }
                 }
+                var c = string.Join("\r\n", e.Select(s1 => string.Join(",", s1)));
+                FileExtras.SaveToFile(path, c, true);
             }
-            var c = string.Join("\r\n", e.Select(s1 => string.Join(",", s1)));
-            FileExtras.SaveToFile(path, c, true);
+            catch (Exception ex)
+            {
+                log
+                throw;
+            }
+         
         }
     }
 }
