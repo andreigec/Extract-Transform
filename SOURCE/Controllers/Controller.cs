@@ -31,7 +31,7 @@ namespace ExtractTransform.Controllers
                 var xx = j.DownloadPage(rc.URL, rc.PostValues, method, rc.Cookies);
                 var xy = j.Extract(xx);
                 ITransform c = new CSV();
-                var result = c.Save(rc.OutputFilename, xy, new List<string> { "items", "results" });
+                var result = c.Save(rc.OutputFilename, xy, new List<string> { "items", "results" }, rc.InsertHeader, rc.UniqueColumn);
                 ret.Status = result.Status;
                 ret.ErrorStatus = result.ErrorStatus;
                 ret.Items.AddRange(result.Items);
