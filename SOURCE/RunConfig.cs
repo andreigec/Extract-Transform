@@ -20,12 +20,11 @@ namespace ExtractTransform
         {
             get { return Params.Aggregate("", (a, b) => a + "," + b.Regex + ":" + b.Current); }
         }
-        public RunConfig(string url, string postValues, string outputFilename, List<Param> @params, int runCountRemaining, int waitTimeSec, List<KeyValuePair<string, string>> cookies, int? uniqueColumn)
+        public RunConfig(string url, string postValues, string outputFilename, List<Param> @params, int runCountRemaining, int waitTimeSec, List<KeyValuePair<string, string>> cookies)
         {
             if (runCountRemaining == -1)
                 RunUntilDone = true;
 
-            UniqueColumn = uniqueColumn;
             Cookies = cookies;
             RunCountRemaining = runCountRemaining;
             WaitTimeSec = waitTimeSec;
@@ -48,16 +47,9 @@ namespace ExtractTransform
             InsertHeader = false;
             return true;
         }
+        public string URL => Subst(OrigURL);
 
-        public string URL
-        {
-            get { return Subst(OrigURL); }
-        }
-
-        public string PostValues
-        {
-            get { return Subst(OrigPostValues); }
-        }
+        public string PostValues => Subst(OrigPostValues);
 
         private string Subst(string instr)
         {

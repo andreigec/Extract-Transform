@@ -113,9 +113,7 @@ namespace ExtractTransform.Helpers
             foreach (Dictionary<string, object> row in rows)
             {
                 //check unique if exists
-
-                foreach (string field in fields)
-                    r.Add(MakeValueCsvFriendly(row[field]));
+                r.AddRange(fields.Select(field => MakeValueCsvFriendly(row[field])));
                 ret.Add(r);
             }
 
@@ -148,10 +146,9 @@ namespace ExtractTransform.Helpers
             }
             catch (Exception ex)
             {
-                log
                 throw;
             }
-         
+
         }
     }
 }

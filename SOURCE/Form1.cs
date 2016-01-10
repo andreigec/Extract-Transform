@@ -13,7 +13,7 @@ namespace ExtractTransform
         #region licensing
 
         private const string AppTitle = "ExtractTransform";
-        private const double AppVersion = 0.2;
+        private const double AppVersion = 0.3;
         private const String HelpString = "";
 
         private readonly String OtherText =
@@ -102,12 +102,9 @@ Zip Assets © SharpZipLib (http://www.sharpdevelop.net/OpenSource/SharpZipLib/)
                     if (int.TryParse(runCountCB.Text, out runCount) == false)
                         runCount = -1;
 
-                    int uniqueColumn = -1;
-                    if (int.TryParse(uniqueColumnCB.Text, out uniqueColumn) == false)
-                        uniqueColumn = -1;
-
                     var cookies = GetCookies();
-                    var rc = new RunConfig(urlTB.Text, postTB.Text, filenameTB.Text, @params, runCount, wait, cookies, uniqueColumn == -1 ? (int?)null : uniqueColumn);
+                    var fn = NetExtras.MakeStringURLSafe(urlTB.Text) + ".csv";
+                    var rc = new RunConfig(urlTB.Text, postTB.Text, fn, @params, runCount, wait, cookies);
                     runThread = new Thread(() => RunThread(rc, this));
                     runThread.Start();
                 }
@@ -129,7 +126,7 @@ Zip Assets © SharpZipLib (http://www.sharpdevelop.net/OpenSource/SharpZipLib/)
 
         private void ToggleRun(bool enabled)
         {
-            Running = !enabled;
+            Running = enabled;
             configbox.Enabled = !enabled;
 
             if (enabled == false)
@@ -140,6 +137,7 @@ Zip Assets © SharpZipLib (http://www.sharpdevelop.net/OpenSource/SharpZipLib/)
             }
 
             outputTB.ReadOnly = enabled;
+            goB.Text = enabled ? "Abort" : "Run";
         }
 
         private List<Param> GetParams()
@@ -172,7 +170,7 @@ Zip Assets © SharpZipLib (http://www.sharpdevelop.net/OpenSource/SharpZipLib/)
                     {
                         f.outputTB.Text += "\r\n" + i;
                     }
-                    f.outputTB.Text += "\r\n" + string.Format("Runtime(MS):{0}", (DateTime.Now - start).TotalMilliseconds);
+                    f.outputTB.Text += "\r\n" + $"Runtime(MS):{(DateTime.Now - start).TotalMilliseconds}";
                     TextboxExtras.ScrollToEnd(f.outputTB);
 
                     if (res.Status == false)

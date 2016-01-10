@@ -31,7 +31,7 @@
             System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
             "{skip}",
             "1",
-            ""}, -1);
+            "1"}, -1);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,14 +47,11 @@
             this.runCountCB = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
-            this.filenameTB = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.goB = new System.Windows.Forms.Button();
             this.outputTB = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.configbox = new System.Windows.Forms.GroupBox();
-            this.uniqueColumnCB = new System.Windows.Forms.ComboBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.waitTimeSeconds = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
@@ -202,16 +199,6 @@
             this.fileSystemWatcher1.EnableRaisingEvents = true;
             this.fileSystemWatcher1.SynchronizingObject = this;
             // 
-            // filenameTB
-            // 
-            this.filenameTB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.filenameTB.Location = new System.Drawing.Point(10, 315);
-            this.filenameTB.Name = "filenameTB";
-            this.filenameTB.Size = new System.Drawing.Size(422, 20);
-            this.filenameTB.TabIndex = 9;
-            this.filenameTB.Text = "test.csv";
-            // 
             // label5
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -257,8 +244,6 @@
             // 
             this.configbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.configbox.Controls.Add(this.uniqueColumnCB);
-            this.configbox.Controls.Add(this.label8);
             this.configbox.Controls.Add(this.label7);
             this.configbox.Controls.Add(this.waitTimeSeconds);
             this.configbox.Controls.Add(this.label1);
@@ -267,7 +252,6 @@
             this.configbox.Controls.Add(this.label2);
             this.configbox.Controls.Add(this.label5);
             this.configbox.Controls.Add(this.label3);
-            this.configbox.Controls.Add(this.filenameTB);
             this.configbox.Controls.Add(this.deltaLogicLV);
             this.configbox.Controls.Add(this.label4);
             this.configbox.Controls.Add(this.runCountCB);
@@ -277,38 +261,6 @@
             this.configbox.TabIndex = 14;
             this.configbox.TabStop = false;
             this.configbox.Text = "Config";
-            // 
-            // uniqueColumnCB
-            // 
-            this.uniqueColumnCB.FormattingEnabled = true;
-            this.uniqueColumnCB.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10"});
-            this.uniqueColumnCB.Location = new System.Drawing.Point(341, 275);
-            this.uniqueColumnCB.Name = "uniqueColumnCB";
-            this.uniqueColumnCB.Size = new System.Drawing.Size(91, 21);
-            this.uniqueColumnCB.TabIndex = 15;
-            this.uniqueColumnCB.Text = "4";
-            // 
-            // label8
-            // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(338, 257);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(89, 13);
-            this.label8.TabIndex = 14;
-            this.label8.Text = "Unique Column #";
             // 
             // label7
             // 
@@ -379,15 +331,12 @@
 		private System.Windows.Forms.Label label4;
 		private System.IO.FileSystemWatcher fileSystemWatcher1;
 		private System.Windows.Forms.Label label5;
-		private System.Windows.Forms.TextBox filenameTB;
 		private System.Windows.Forms.Button goB;
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.TextBox outputTB;
 		private System.Windows.Forms.GroupBox configbox;
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.ComboBox waitTimeSeconds;
-        private System.Windows.Forms.ComboBox uniqueColumnCB;
-        private System.Windows.Forms.Label label8;
 	}
 }
 
