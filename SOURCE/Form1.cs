@@ -4,6 +4,7 @@ using System.Threading;
 using System.Windows.Forms;
 using ANDREICSLIB;
 using ExtractTransform.Controllers;
+using ExtractTransform.Forms;
 using ExtractTransform.ServiceReference1;
 
 namespace ExtractTransform
@@ -54,8 +55,6 @@ Zip Assets © SharpZipLib (http://www.sharpdevelop.net/OpenSource/SharpZipLib/)
 
         #endregion
 
-
-
         public Form1()
         {
             InitializeComponent();
@@ -69,7 +68,6 @@ Zip Assets © SharpZipLib (http://www.sharpdevelop.net/OpenSource/SharpZipLib/)
             runCountCB.SelectedIndex = runCountCB.Items.Count - 1;
             waitTimeSeconds.SelectedIndex = 0;
             CheckForIllegalCrossThreadCalls = false;
-
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -92,19 +90,19 @@ Zip Assets © SharpZipLib (http://www.sharpdevelop.net/OpenSource/SharpZipLib/)
                 ToggleRun(true);
                 try
                 {
-                    //get params from delta combo box
-                    var @params = GetParams();
-                    int wait = -1;
-                    if (int.TryParse(waitTimeSeconds.Text, out wait) == false)
-                        wait = -1;
+                    RunConfig rc = null;
+                    if (tabControl1.SelectedTab.Text == "JSON")
+                        rc = JSONForm.ExtractFormParams(this);
+                    else if (tabControl1.SelectedTab.Text == "HTML")
+                        rc = HTMLForm.ExtractFormParams(this);
 
-                    int runCount = -1;
-                    if (int.TryParse(runCountCB.Text, out runCount) == false)
-                        runCount = -1;
+                    if (rc == null)
+                        throw new Exception("Error getting run config");
 
-                    var cookies = GetCookies();
-                    var fn = NetExtras.MakeStringURLSafe(urlTB.Text) + ".csv";
-                    var rc = new RunConfig(urlTB.Text, postTB.Text, fn, @params, runCount, wait, cookies);
+                    //set csv for now
+                    rc.Tm = RunConfig.TransformMode.CSV;
+                    rc.SetAdaptors();
+
                     runThread = new Thread(() => RunThread(rc, this));
                     runThread.Start();
                 }
@@ -116,18 +114,13 @@ Zip Assets © SharpZipLib (http://www.sharpdevelop.net/OpenSource/SharpZipLib/)
             }
         }
 
-        private List<KeyValuePair<string, string>> GetCookies()
-        {
-            List<KeyValuePair<string, string>> ret = new List<KeyValuePair<string, string>>();
-
-            return ret;
-
-        }
-
         private void ToggleRun(bool enabled)
         {
             Running = enabled;
-            configbox.Enabled = !enabled;
+            tabControl1.Enabled = !enabled;
+
+            outputTB.ReadOnly = enabled;
+            goB.Text = enabled ? "Abort" : "Run";
 
             if (enabled == false)
             {
@@ -135,26 +128,7 @@ Zip Assets © SharpZipLib (http://www.sharpdevelop.net/OpenSource/SharpZipLib/)
                     runThread.Abort();
                 runThread = null;
             }
-
-            outputTB.ReadOnly = enabled;
-            goB.Text = enabled ? "Abort" : "Run";
         }
-
-        private List<Param> GetParams()
-        {
-            var ret = new List<Param>();
-            foreach (ListViewItem i in deltaLogicLV.Items)
-            {
-                var regex = i.Text;
-                var change = long.Parse(i.SubItems[1].Text);
-                var start = long.Parse(i.SubItems[2].Text);
-
-                var p = new Param(regex, start, change);
-                ret.Add(p);
-            }
-            return ret;
-        }
-
 
         private static void RunThread(RunConfig rc, Form1 f)
         {
@@ -170,7 +144,7 @@ Zip Assets © SharpZipLib (http://www.sharpdevelop.net/OpenSource/SharpZipLib/)
                     {
                         f.outputTB.Text += "\r\n" + i;
                     }
-                    f.outputTB.Text += "\r\n" + $"Runtime(MS):{(DateTime.Now - start).TotalMilliseconds}";
+                    f.outputTB.Text += $"\r\nRuntime(MS):{(DateTime.Now - start).TotalMilliseconds}";
                     TextboxExtras.ScrollToEnd(f.outputTB);
 
                     if (res.Status == false)
@@ -185,9 +159,7 @@ Zip Assets © SharpZipLib (http://www.sharpdevelop.net/OpenSource/SharpZipLib/)
             catch (Exception ex)
             {
             }
-
-            f.Running = false;
-            f.configbox.Enabled = true;
+            f.ToggleRun(false);
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)

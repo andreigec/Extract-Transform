@@ -48,21 +48,25 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdaptorIn\ExtractCommon.cs" />
+    <Compile Include="AdaptorIn\HTMLExtract.cs" />
     <Compile Include="Controllers\Controller.cs" />
-    <Compile Include="Controllers\CSV.cs" />
+    <Compile Include="AdaptorOut\CSVTransform.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\JSON.cs" />
+    <Compile Include="AdaptorIn\JSONExtract.cs" />
+    <Compile Include="Forms\HTMLForm.cs" />
+    <Compile Include="Forms\JSONForm.cs" />
     <Compile Include="Helpers\CsvExport.cs" />
     <Compile Include="Helpers\DynamicJSONConverter.cs" />
     <Compile Include="Helpers\Helpers.cs" />
     <Compile Include="Helpers\JsonRequest.cs" />
-    <Compile Include="Interfaces\IExtract.cs" />
-    <Compile Include="Interfaces\ITransform.cs" />
+    <Compile Include="AdaptorIn\IExtract.cs" />
+    <Compile Include="AdaptorOut\ITransform.cs" />
     <Compile Include="Param.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

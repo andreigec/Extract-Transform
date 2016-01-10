@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Web.Script.Serialization;
 using ExtractTransform.Helpers;
-using ExtractTransform.Interfaces;
 
-namespace ExtractTransform
+namespace ExtractTransform.AdaptorIn
 {
-    public class JSON : IExtract
+    public class JSONExtract : IExtract
     {
         public string DownloadPage(string url, string @params, string method = "POST", List<KeyValuePair<string, string>> cookies = null)
         {

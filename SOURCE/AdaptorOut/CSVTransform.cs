@@ -1,19 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using ANDREICSLIB;
 using ExtractTransform.Helpers;
-using ExtractTransform.Interfaces;
 
-namespace ExtractTransform.Controllers
+namespace ExtractTransform.AdaptorOut
 {
-    public class CSV : ITransform
+    public class CSVTransform : ITransform
     {
         private static bool IsSimple(object o)
         {

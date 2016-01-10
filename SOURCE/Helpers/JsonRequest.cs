@@ -73,11 +73,15 @@ namespace ExtractTransform.Helpers
             HttpRequest.UserAgent =
                 "User-Agent: Mozilla/5.0";
             HttpRequest.KeepAlive = true;
-            foreach (var kvp in Cookies)
+            if (Cookies != null)
             {
-                var c = new Cookie(kvp.Key, kvp.Value) { Domain = target.Host };
-                HttpRequest.CookieContainer.Add(c);
+                foreach (var kvp in Cookies)
+                {
+                    var c = new Cookie(kvp.Key, kvp.Value) { Domain = target.Host };
+                    HttpRequest.CookieContainer.Add(c);
+                }
             }
+
             if (verb == "POST")
                 WriteStream(obj);
 

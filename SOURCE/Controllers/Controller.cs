@@ -7,7 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using ExtractTransform.Helpers;
 using System.Web.Script.Serialization;
-using ExtractTransform.Interfaces;
+using ExtractTransform.AdaptorIn;
+using ExtractTransform.AdaptorOut;
 
 namespace ExtractTransform.Controllers
 {
@@ -24,20 +25,27 @@ namespace ExtractTransform.Controllers
             var ret = new Result();
             try
             {
-                IExtract j = new JSON();
-                ret.Items.Add("Getting:" + rc.URL + " With Params:" + rc.ParamsString);
+                var str = "Getting:" + rc.URL;
+                if (rc.ParamsString != null)
+                    str += " With Params:" + rc.ParamsString;
+                ret.Items.Add(str);
 
                 var method = (rc.PostValues == null || rc.PostValues.Any() == false) ? "GET" : "POST";
 
-                var xx = j.DownloadPage(rc.URL, rc.PostValues, method, rc.Cookies);
-                var xy = j.Extract(xx);
-                ITransform c = new CSV();
+                //extractor specific
+                var xx = rc.Extractor.DownloadPage(rc.URL, rc.PostValues, method, rc.Cookies);
+                var xy = rc.Extractor.Extract(xx);
+
                 //try and set unique col
                 if (rc.UniqueColumn == null)
                 {
-                    rc.UniqueColumn = GuessUnique(xy); 
+                    rc.UniqueColumn = GuessUnique(xy);
                 }
-                var result = c.Save(rc.OutputFilename, xy, new List<string> { "items", "results" }, rc.InsertHeader, rc.UniqueColumn);
+
+                //transformer specific
+                var result = rc.Transformer.Save(rc.OutputFilename, xy, new List<string> { "items", "results" }, rc.InsertHeader, rc.UniqueColumn);
+
+
                 ret.Status = result.Status;
                 ret.ErrorStatus = result.ErrorStatus;
                 ret.Items.AddRange(result.Items);

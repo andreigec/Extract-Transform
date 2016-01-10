@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ANDREICSLIB;
+using ExtractTransform.AdaptorOut;
 using ExtractTransform.Controllers;
 
 namespace ExtractTransform.Helpers
@@ -132,7 +133,7 @@ namespace ExtractTransform.Helpers
                 //check unique
                 if (uniqueColumn != null)
                 {
-                    var f = CSV.Load(path);
+                    var f = CSVTransform.Load(path);
                     if (f != null)
                     {
                         var exist = f.Select(s => s[(int)uniqueColumn]).ToList();
