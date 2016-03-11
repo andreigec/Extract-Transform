@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -7,8 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ExtractTransform.Helpers;
 using System.Web.Script.Serialization;
-using ExtractTransform.AdaptorIn;
-using ExtractTransform.AdaptorOut;
+using ANDREICSLIB.Helpers;
 
 namespace ExtractTransform.Controllers
 {
@@ -33,7 +32,7 @@ namespace ExtractTransform.Controllers
                 var method = (rc.PostValues == null || rc.PostValues.Any() == false) ? "GET" : "POST";
 
                 //extractor specific
-                var xx = rc.Extractor.DownloadPage(rc.URL, rc.PostValues, method, rc.Cookies);
+                var xx = AsyncHelpers.RunSync(() => rc.Extractor.DownloadPage(rc.URL, rc.PostValues, method, rc.Cookies));
                 var xy = rc.Extractor.Extract(xx);
 
                 //try and set unique col

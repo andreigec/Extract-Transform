@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using ANDREICSLIB.Extracters;
+using ANDREICSLIB.Transformers;
 using ExtractTransform.AdaptorIn;
-using ExtractTransform.AdaptorOut;
 
 namespace ExtractTransform
 {
@@ -46,7 +47,7 @@ namespace ExtractTransform
                     Extractor = new JSONExtract();
                     break;
                 case ExtractMode.HTML:
-                    Extractor = new HTMLExtract();
+                  //  Extractor = new HTMLExtract();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(Em), Em, null);

@@ -12,10 +12,11 @@ namespace ExtractTransform.Forms
     {
         public static RunConfig ExtractFormParams(Form1 baseform)
         {
-            var fn = NetExtras.MakeStringURLSafe(baseform.HtmlURLTB.Text) + ".csv";
-            var rc = new RunConfig(RunConfig.ExtractMode.HTML, RunConfig.TransformMode.Invalid, baseform.HtmlURLTB.Text, null, fn, null, -1, -1, null);
+            // var fn = NetExtras.MakeStringURLSafe(baseform.HtmlURLTB.Text) + ".csv";
+            //  var rc = new RunConfig(RunConfig.ExtractMode.HTML, RunConfig.TransformMode.Invalid, baseform.HtmlURLTB.Text, null, fn, null, -1, -1, null);
 
-            return rc;
+            //   return rc;
+            return null;
         }
     }
 }

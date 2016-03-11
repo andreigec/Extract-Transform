@@ -33,8 +33,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ANDREICSLIB, Version=1.0.104.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\ANDREICSLIB.1.0.104.0\lib\net451\ANDREICSLIB.dll</HintPath>
+    <Reference Include="ANDREICSLIB, Version=1.0.105.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\ANDREICSLIB.1.0.105.0\lib\net451\ANDREICSLIB.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.4.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
@@ -65,25 +65,19 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdaptorIn\ExtractCommon.cs" />
-    <Compile Include="AdaptorIn\HTMLExtract.cs" />
     <Compile Include="Controllers\Controller.cs" />
-    <Compile Include="AdaptorOut\CSVTransform.cs" />
+    <Compile Include="Extracters\HTMLExtract.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="AdaptorIn\JSONExtract.cs" />
     <Compile Include="Forms\HTMLForm.cs" />
     <Compile Include="Forms\JSONForm.cs" />
-    <Compile Include="Helpers\CsvExport.cs" />
     <Compile Include="Helpers\DynamicJSONConverter.cs" />
     <Compile Include="Helpers\Helpers.cs" />
     <Compile Include="Helpers\JsonRequest.cs" />
-    <Compile Include="AdaptorIn\IExtract.cs" />
-    <Compile Include="AdaptorOut\ITransform.cs" />
     <Compile Include="Param.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
